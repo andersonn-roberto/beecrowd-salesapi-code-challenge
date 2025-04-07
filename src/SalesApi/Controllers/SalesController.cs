@@ -1,4 +1,3 @@
-using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using SalesApi.Application.Interfaces;
 using SalesApi.Application.Requests;
