@@ -1,0 +1,37 @@
+{
+    "Routes": [
+        {
+            "UpstreamPathTemplate": "/products",
+            "DownstreamPathTemplate": "/api/products",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "sales-api",
+                    "Port": 8090
+                }
+            ]
+        },
+        {
+            "UpstreamPathTemplate": "/sales",
+            "DownstreamPathTemplate": "/api/sales",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "sales-api",
+                    "Port": 8090
+                }
+            ]
+        },
+        {
+            "UpstreamPathTemplate": "/sales/{id}",
+            "DownstreamPathTemplate": "/api/sales/{id}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "sales-api",
+                    "Port": 8090
+                }
+            ]
+        }
+    ]
+}
