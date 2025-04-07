@@ -13,6 +13,13 @@ public class SaleItem
 
     public static SaleItem CreateForProduct(Product p, int quantity)
     {
+        ArgumentNullException.ThrowIfNull(p);
+
+        if (quantity <= 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(quantity), "Quantity must be positive value");
+        }
+
         SaleItem item = new()
         {
             ProductId = p.Id,
