@@ -50,6 +50,7 @@ namespace SalesApi.Controllers
         public IActionResult CancelSale(Guid id)
         {
             _saleService.CancelSale(id);
+
             return Ok("Sale cancelled successfully");
         }
     }

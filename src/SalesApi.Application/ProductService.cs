@@ -1,6 +1,7 @@
-using System.Threading.Tasks;
+using FluentValidation;
 using SalesApi.Application.Interfaces;
 using SalesApi.Application.Requests;
+using SalesApi.Application.Validators;
 using SalesApi.Domain.Models;
 using SalesApi.Domain.Repositories;
 
@@ -12,6 +13,14 @@ public class ProductService(IProductRepository productRepository) : IProductServ
 
     public void CreateProduct(CreateProductRequest request)
     {
+        var validator = new CreateProductRequestValidator();
+        var validationResult = validator.Validate(request);
+
+        if (!validationResult.IsValid)
+        {
+            throw new ValidationException(validationResult.Errors);
+        }
+
         var product = new Product
         {
             Description = request.Description,

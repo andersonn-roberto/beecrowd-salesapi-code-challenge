@@ -1,5 +1,8 @@
+using FluentValidation;
 using SalesApi.Application.Interfaces;
 using SalesApi.Application.Requests;
+using SalesApi.Application.Validators;
+using SalesApi.Domain.Exceptions;
 using SalesApi.Domain.Models;
 using SalesApi.Domain.Repositories;
 
@@ -13,6 +16,19 @@ public class SaleService(ISaleRepository saleRepository, IProductRepository prod
 
     public async Task<Sale> CreateSale(CreateSaleRequest request)
     {
+        var validator = new CreateSaleRequestValidator();
+        var validationResult = validator.Validate(request);
+
+        if (request.SaleLimitReached)
+        {
+            throw new DomainException("You cannot buy more than 20 pieces of same item");
+        }
+
+        if (!validationResult.IsValid)
+        {
+            throw new ValidationException(validationResult.Errors);
+        }
+
         Sale sale = new()
         {
             SaleNumber = request.SaleNumber,
